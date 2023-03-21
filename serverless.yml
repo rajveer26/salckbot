@@ -1,0 +1,42 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: salckbot
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  api_to_add_user:
+    handler: appaws.handler
+    events:
+      - httpApi:
+          path: /slack/events
+          method: post
+
+    environment:
+      NODE_ENV: development
+      SLACK_SIGNING_SECRET: 84ff4abd84f90c0d2beb2347ea44a3e4
+      SLACK_BOT_TOKEN: xoxb-4888345230693-4922933497190-h9W5iPZTp1c0ADTapqqtdBQ6
+      SLACK_APP_TOKEN: xapp-1-A04T4TDV4UE-4942442891953-6ee786660f1b3640e77859c180593970d2cbdf39c7a6ac495ee1fdb2fe8b2780
+
+
+custom:
+  serverless-offline-sqs:
+
+
+plugins:
+  - serverless-offline
+
