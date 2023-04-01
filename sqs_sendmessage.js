@@ -6,25 +6,15 @@ AWS.config.update({region: 'eu-central-1'});
 // Create an SQS service object
 let sqs = new AWS.SQS({apiVersion: '2012-11-05'});
 
+let bod={
+    name:"rajveer"
+}
 let sendDetails = function () {
     let params = {
         // Remove DelaySeconds parameter and value for FIFO queues
-       // DelaySeconds: 10,
-        MessageAttributes: {
-            "Title": {
-                DataType: "String",
-                StringValue: "The Whistler"
-            },
-            "Author": {
-                DataType: "String",
-                StringValue: "John Grisham"
-            },
-            "WeeksOn": {
-                DataType: "Number",
-                StringValue: "6"
-            }
-        },
-        MessageBody: "Information about current NY Times fiction bestseller for week of 12/11/2016.",
+        DelaySeconds: 10,
+
+        MessageBody: JSON.stringify(bod),
         // MessageDeduplicationId: "TheWhistler",  // Required for FIFO queues
         // MessageGroupId: "Group1",  // Required for FIFO queues
         QueueUrl: 'https://sqs.eu-central-1.amazonaws.com/789111362810/leave-tracker-leave-sync'
@@ -35,6 +25,8 @@ let sendDetails = function () {
             console.log("Error", err);
         } else {
             console.log("Success", data.MessageId);
+            console.log(data);
+            console.log(params);
         }
     });
 };
